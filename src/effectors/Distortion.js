@@ -19,7 +19,7 @@ export default class Distortion extends Effector {
       threshold: -10,
     });
     this.gainNode.gain.value = 0.1;
-    this.waveShaperNode.curve = this.makeDistortionCurve(2);
+    this.waveShaperNode.curve = this.makeDistortionCurve(0.5);
     this.connectNodes([this.waveShaperNode, this.gainNode, this.compressorNode]);
   }
 

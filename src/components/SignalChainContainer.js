@@ -1,7 +1,7 @@
 import Component from "../core/Component";
 import { createElement } from "../utils/DomHelper";
-import Equalizer from "./Equalizer";
 import SignalChainField from "./SignalChainField";
+import Equalizer from "./Equalizer";
 
 export default class SignalChainContainer extends Component {
   constructor(parentElement) {

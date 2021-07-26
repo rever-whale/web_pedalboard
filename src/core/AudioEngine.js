@@ -120,13 +120,13 @@ export function drawVisualizer(_equalizer) {
         const y = item / 255 * height / 2;
         const x = barWidth * index;
   
-        canvasContext.fillStyle = 'white'//`hsl(${y / height * 400}, 100%, 50%)`;
-        canvasContext.fillRect(x, height - y, barWidth, y);
+        canvasContext.fillStyle = 'white';
+        canvasContext.fillRect(x,  height - y, barWidth, y);
     })
   }
 }
 
 export function initVisualizer (equalizer) {
-  equalizer.width = equalizer.clientWidth * window.devicePixelRatio;
-  equalizer.height = equalizer.clientHeight * window.devicePixelRatio;
+  equalizer.width = equalizer.parentElement.offsetWidth// equalizer.clientWidth * window.devicePixelRatio;
+  equalizer.height = equalizer.parentElement.offsetWidth //equalizer.clientHeight * window.devicePixelRatio;
 }
