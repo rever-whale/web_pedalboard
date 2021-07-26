@@ -68,21 +68,22 @@ export async function createAudioStream () {
 
   analyserNode = new AnalyserNode(context);
   const inputNode = context.createMediaStreamSource(guitarSource);
+  const pannerNode = new StereoPannerNode(context, {pan: 0.5});
   const outputNode = context.destination;
   const boardChain = getBoardChain(context);
   const chainLength = boardChain.length;
   console.log(boardChain);
 
   // start chain
-  inputNode.connect(boardChain[0].input);
+  inputNode.connect(pannerNode).connect(boardChain[0].input);
 
 
-  // // process chain
+  // process chain
   for (let i = 0; i < chainLength - 1; i++) {
     boardChain[i].connect(boardChain[i + 1]);
   }
 
-  // // end chain
+  // end chain
   boardChain[chainLength - 1].output.connect(analyserNode);
   analyserNode.connect(outputNode);
 }

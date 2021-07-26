@@ -13,10 +13,14 @@ export default class Distortion extends Effector {
 
     this.gainNode = context.createGain();
     this.waveShaperNode = new WaveShaperNode(context);
-
-    this.gainNode.gain.value = 0.2;
-    this.waveShaperNode.curve = this.makeDistortionCurve(0.1);
-    this.connectNodes([this.waveShaperNode, this.gainNode]);
+    this.compressorNode = new DynamicsCompressorNode(context, {
+      knee: 30,
+      release: 0.25,
+      threshold: -10,
+    });
+    this.gainNode.gain.value = 0.1;
+    this.waveShaperNode.curve = this.makeDistortionCurve(2);
+    this.connectNodes([this.waveShaperNode, this.gainNode, this.compressorNode]);
   }
 
  makeDistortionCurve (amount) {
