@@ -7,18 +7,16 @@ export default class Effector {
     this.id = id;
     this.input = context.createGain();
     this.output = context.createGain();
-
-    this.connectNodes([]);
   }
 
   connect(effector) {
     this.output.connect(effector.input);
   }
 
-  connectNodes (nodes) {
-    const nodeChain = [this.output, ...nodes, this.input];
-    for (let i = nodeChain.length - 1; i > 0; --i) {
-      nodeChain[i - 1].connect(nodeChain[i]);
+  connectNodes (nodes = []) {
+    const nodeChain = [this.input, ...nodes, this.output];
+    for (let i = 0, len = nodeChain.length; i < len - 1; i++) {
+      nodeChain[i].connect(nodeChain[i + 1]);
     }
   }
 }

@@ -8,6 +8,8 @@ import Output from "../effectors/Output";
 import MetalZone from "../effectors/MetalZone";
 
 let context;
+let analyserNode;
+
 const EFFECTOR_CLASSES = {
   'Amplifier': Amplifier,
   'Chorus': Chorus,
@@ -46,12 +48,17 @@ export const changeSoundChain = () => {
   } else {
     console.log('changed', currentChain);  
     prevChain = currentChain;
-
+    
     createAudioStream();
   };
 }
 
-async function createAudioStream () {
+export async function createAudioStream () {
+  if (context) {
+    await context.close();
+    context = null;
+  }
+
   context = new AudioContext();
   const guitarSource = await getGuitar();
 
@@ -59,6 +66,7 @@ async function createAudioStream () {
     await context.resume();
   }
 
+  analyserNode = new AnalyserNode(context);
   const inputNode = context.createMediaStreamSource(guitarSource);
   const outputNode = context.destination;
   const boardChain = getBoardChain(context);
@@ -69,13 +77,14 @@ async function createAudioStream () {
   inputNode.connect(boardChain[0].input);
 
 
-  // process chain
-  for (let i = 1; i < chainLength; i++) {
-    boardChain[i].connect(boardChain[i - 1]);
+  // // process chain
+  for (let i = 0; i < chainLength - 1; i++) {
+    boardChain[i].connect(boardChain[i + 1]);
   }
 
-  // end chain
-  boardChain[chainLength - 1].output.connect(outputNode);
+  // // end chain
+  boardChain[chainLength - 1].output.connect(analyserNode);
+  analyserNode.connect(outputNode);
 }
 
 function getGuitar () {
@@ -89,5 +98,34 @@ function getGuitar () {
   })
 }
 
+let equalizer;
+export function drawVisualizer(_equalizer) {
+  if (!equalizer) equalizer = _equalizer;
+  requestAnimationFrame(drawVisualizer);
 
-createAudioStream();
+  if (analyserNode) {
+    const bufferLength = analyserNode.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyserNode.getByteFrequencyData(dataArray);
+  
+    const width = equalizer.width;
+    const height = equalizer.height;
+    const barWidth = width / bufferLength * 3;
+  
+    const canvasContext = equalizer.getContext('2d');
+    canvasContext.clearRect(0, 0, width, height);
+  
+    dataArray.forEach((item, index) => {
+        const y = item / 255 * height / 2;
+        const x = barWidth * index;
+  
+        canvasContext.fillStyle = 'white'//`hsl(${y / height * 400}, 100%, 50%)`;
+        canvasContext.fillRect(x, height - y, barWidth, y);
+    })
+  }
+}
+
+export function initVisualizer (equalizer) {
+  equalizer.width = equalizer.clientWidth * window.devicePixelRatio;
+  equalizer.height = equalizer.clientHeight * window.devicePixelRatio;
+}

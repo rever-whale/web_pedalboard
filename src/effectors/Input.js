@@ -12,6 +12,7 @@ const specInfo = {
 export default class Input extends Effector {
   constructor(context) {
     super(context);
+    this.connectNodes();
   }
 
   static getSpec () {

@@ -1,3 +1,4 @@
+import { drawVisualizer, initVisualizer } from "../core/AudioEngine";
 import Component from "../core/Component";
 import { createElement } from "../utils/DomHelper";
 
@@ -14,5 +15,11 @@ export default class Equalizer extends Component {
     );
 
     this.render();
+  }
+
+  mounted () {
+    const el = document.querySelector('#equalizer');
+    initVisualizer(el);
+    drawVisualizer(el);
   }
 }

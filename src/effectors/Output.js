@@ -11,6 +11,7 @@ const specInfo = {
 export default class Output extends Effector {
   constructor(context) {
     super(context);
+    this.connectNodes();
   }
 
   static getSpec () {

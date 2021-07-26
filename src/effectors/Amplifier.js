@@ -14,15 +14,15 @@ export default class Amplifier extends Effector {
   midEQNode;
   trebleEQNode;
 
-  volume = 0.5;
-  base = 0.5;
-  mid = 0.5;
-  treble = 0.5;
+  volume = 5;
+  base = -3;
+  mid = 0.7;
+  treble = 0.3;
 
   constructor(context) {
     super(context);
 
-    this.gainNode = new GainNode(context, { gain: this.volume });
+    this.gainNode = new GainNode(context, { gain: 10 });
     this.bassEQNode = new BiquadFilterNode(context, {
       type: "lowshelf",
       frequency: 500,
@@ -41,7 +41,7 @@ export default class Amplifier extends Effector {
       gain: this.treble,
     });
 
-    this.nodes = [this.gainNode, this.bassEQNode, this.midEQNode, this.trebleEQNode];
+    this.nodes = [this.bassEQNode, this.midEQNode, this.trebleEQNode, this.gainNode];
     this.connectNodes(this.nodes);
   }
 
