@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Multi Effector</title>
+  <link rel="stylesheet" href="./static/reset.css">
+  <link rel="stylesheet" href="./static/common.css">
+</head>
+<body>
+  <section id="app">
+    <header class="center-flex">
+      <section class="title center-flex">Web Multi Effector TG-1</section>
+    </header>
+    <section id="board-wrapper">
+      <section id="remove">Remove</section>
+      <sidebar id="sidebar">
+        <div class="sidebar_name">Items</div>
+        <div class="item">
+          <div class="block yellow" draggable="true" data-id="ds-1">DS-1</div>
+          <div class="item_field">
+            <div class="item_title">Distortion</div>
+            <div class="item_description">Boss DS-1</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="block black" draggable="true">MT-2</div>
+          <div class="item_field">
+            <div class="item_title">Metal Zone</div>
+            <div class="item_description">Boss Metal Zone-2</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="block red" draggable="true">AMP</div>
+          <div class="item_field">
+            <div class="item_title">Amp</div>
+            <div class="item_description">Web Amp Simulation</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="block purple" draggable="true">IR</div>
+          <div class="item_field">
+            <div class="item_title">Impulse Response</div>
+            <div class="item_description">Using Free IR(Impulse Response)</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="block skyblue" draggable="true">DL-4</div>
+          <div class="item_field">
+            <div class="item_title">Delay</div>
+            <div class="item_description">Time & Space Effect</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="block skyblue" draggable="true">CH-2</div>
+          <div class="item_field">
+            <div class="item_title">Chorus</div>
+            <div class="item_description">Modulation</div>
+          </div>
+        </div>
+      </sidebar>
+      <section id="board" class="center-flex">
+        <canvas id="equalizer"></canvas>
+        <div class="board_name">Signal Chain</div>
+        <div class="liner-wrapper">
+          <span class="line"></span>
+          <div id="board-liner" class="between-flex">
+              <div class="block white const">INPUT</div>
+              <div class="block empty"></div>
+              <div class="block empty"></div>
+              <div class="block empty"></div>
+              <div class="block empty"></div>
+              <div class="block empty"></div>
+              <div class="block empty"></div>
+              <div class="block empty"></div>
+              <div class="block empty"></div>
+              <div class="block white const">OUTPUT</div>
+          </div>
+        </div>
+      </section>
+    </section>
+    <footer class="center-flex">developed by cayde.abdo</footer>
+    <div class="dimmedLayer">
+      <section class="modal">
+        <div class="effector_title">DS-1</div>
+        <div class="effector_control"></div>
+      </section>
+    </div>
+  </section>
+  <script type="module" src="./src/index.js"></script>
+</body>
+</html>
