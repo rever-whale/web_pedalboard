@@ -79,7 +79,7 @@ header .preset {
   top: 50%;
   position: absolute;
   border-bottom: 1px solid white;
-  width: calc(100% - 40px);
+  width: 100%;
   display: block;
 }
 
