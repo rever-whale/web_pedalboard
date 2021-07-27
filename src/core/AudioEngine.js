@@ -127,6 +127,6 @@ export function drawVisualizer(_equalizer) {
 }
 
 export function initVisualizer (equalizer) {
-  equalizer.width = equalizer.parentElement.offsetWidth// equalizer.clientWidth * window.devicePixelRatio;
-  equalizer.height = equalizer.parentElement.offsetWidth //equalizer.clientHeight * window.devicePixelRatio;
+  equalizer.width = equalizer.parentElement.offsetWidth;
+  equalizer.height = equalizer.parentElement.offsetWidth
 }
